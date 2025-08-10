@@ -26,3 +26,4 @@ By the end of this task, I had a fully functional mini file compression tool wri
 This task not only marked the end of my internship but also symbolized how much I’ve grown technically in a short span. It was a perfect finale to an enriching journey.
 
 *OUTPUT*
+<img width="677" height="249" alt="Image" src="https://github.com/user-attachments/assets/b17ddfbb-52e1-43e1-8bd4-0656e78f4cfa" />
