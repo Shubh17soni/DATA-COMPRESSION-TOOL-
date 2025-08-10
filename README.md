@@ -24,3 +24,6 @@ The challenge here was not just in understanding the algorithm but also in manag
 By the end of this task, I had a fully functional mini file compression tool written entirely in C. It may be simple, but it gave me an immense sense of accomplishment. More importantly, I now feel more confident in working with file I/O, string operations, and basic algorithm design in C. This task pushed me to apply everything I’ve learned throughout the internship, and I’m really proud to say that I completed it independently with proper understanding.
 
 This task not only marked the end of my internship but also symbolized how much I’ve grown technically in a short span. It was a perfect finale to an enriching journey.
+
+*OUTPUT*
+<img width="1476" height="752" alt="Image" src="https://github.com/user-attachments/assets/113030ff-02ef-4fab-92c8-180ed77f3683" />
