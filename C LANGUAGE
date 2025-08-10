@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+// Function to compress file using Run-Length Encoding (RLE)
+void compressFile(const char* inputFile, const char* outputFile) {
+    FILE *in = fopen("examples.txt", "r");
+    FILE *out = fopen("output.txt", "w");
+
+    // Check if file pointers are valid
+    if (!in || !out) {
+        printf("Error opening files!\n");
+        return;
+    }
+
+    char curr, prev;
+    int count = 1;
+
+    // Read the first character from the file
+    prev = fgetc(in);
+
+    // If file is empty, return
+    if (prev == EOF) {
+        fprintf(out, "");
+        fclose(in);
+        fclose(out);
+        return;
+    }
+
+    // Loop through the file character by character
+    while ((curr = fgetc(in)) != EOF) {
+        // If current character is same as previous, increment count
+        if (curr == prev) {
+            count++;
+        } else {
+            // Write the previous character and its count to output file
+            fprintf(out, "%c%d", prev, count);
+            // Update prev to current and reset count
+            prev = curr;
+            count = 1;
+        }
+    }
+
+    // Write the last character and its count
+    fprintf(out, "%c%d", prev, count);
+
+    fclose(in);
+    fclose(out);
+
+    printf("Compression complete! Output saved to %s\n", outputFile);
+}
+
+// Function to decompress file encoded using Run-Length Encoding
+void decompressFile(const char* inputFile, const char* outputFile) {
+    FILE *in = fopen(inputFile, "r");
+    FILE *out = fopen(outputFile, "w");
+
+    // Check if files are valid
+    if (!in || !out) {
+        printf("Error opening files!\n");
+        return;
+    }
+
+    char ch;
+
+    // Loop through each character in the file
+    while ((ch = fgetc(in)) != EOF) {
+        // If it's an alphabet character, read its count next
+        if (isalpha(ch)) {
+            int count = 0;
+            char digit;
+            // Read next digit(s) to form the complete number (for multi-digit counts)
+            while ((digit = fgetc(in)) != EOF && isdigit(digit)) {
+                count = count * 10 + (digit - '0');
+            }
+
+            // Write the character 'count' times to output
+            for (int i = 0; i < count; i++) {
+                fputc(ch, out);
+            }
+
+            // If we read one extra non-digit character, put it back for next iteration
+            if (digit != EOF)
+                ungetc(digit, in);
+        }
+    }
+
+    fclose(in);
+    fclose(out);
+
+    printf("Decompression complete! Output saved to %s\n", outputFile);
+}
+
+int main() {
+    // Define filenames
+    const char* input = "input.txt";               // Original file
+    const char* compressed = "compressed.txt";     // Compressed output
+    const char* decompressed = "decompressed.txt"; // Decompressed output
+
+    // Call functions
+    compressFile(input, compressed);       // Compress the input file
+    decompressFile(compressed, decompressed); // Decompress it back
+
+    return 0;
+}
